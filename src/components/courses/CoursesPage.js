@@ -12,7 +12,7 @@ class CoursesPage extends React.Component {
 
   static propTypes = {
     courses: PropTypes.arrayOf(PropTypes.object).isRequired,
-    dispatch: PropTypes.func.isRequired
+    createCourse: PropTypes.func.isRequired
   };
 
   handleChange = event => {
@@ -22,7 +22,7 @@ class CoursesPage extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.dispatch(courseActions.createCourse(this.state.course));
+    this.props.createCourse(this.state.course);
   };
 
   render() {
@@ -50,4 +50,12 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(CoursesPage);
+const matchDispatchToProps = dispatch => {
+  return {
+    createCourse(course) {
+      dispatch(courseActions.createCourse(course));
+    }
+  };
+};
+
+export default connect(mapStateToProps, matchDispatchToProps)(CoursesPage);
