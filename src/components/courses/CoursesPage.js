@@ -52,10 +52,10 @@ const mapStateToProps = state => {
   };
 };
 
-const matchDispatchToProps = dispatch => {
+const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators(courseActions, dispatch)
   };
 };
 
-export default connect(mapStateToProps, matchDispatchToProps)(CoursesPage);
+export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
