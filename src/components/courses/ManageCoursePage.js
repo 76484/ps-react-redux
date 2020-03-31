@@ -19,6 +19,7 @@ const ManageCoursePage = ({
 }) => {
   const [course, setCourse] = useState({ ...propsCourse });
   const [errors, setErrors] = useState({});
+  const [isSaving, setIsSaving] = useState(false);
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -30,6 +31,7 @@ const ManageCoursePage = ({
 
   const handleSave = event => {
     event.preventDefault();
+    setIsSaving(true);
     saveCourse(course)
       .then(() => {
         history.push("/courses");
@@ -62,6 +64,7 @@ const ManageCoursePage = ({
       errors={errors}
       onChange={handleChange}
       onSave={handleSave}
+      saving={isSaving}
     />
   ) : (
     <Spinner />
