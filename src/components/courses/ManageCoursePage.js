@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { getAuthors } from "../../redux/actions/authorActions";
 import { getCourses, saveCourse } from "../../redux/actions/courseActions";
 import CourseForm from "./CourseForm";
+import Spinner from "../common/Spinner";
 import { newCourse } from "../../../tools/mockData";
 
 const ManageCoursePage = ({
@@ -54,7 +55,7 @@ const ManageCoursePage = ({
     }
   }, [propsCourse]);
 
-  return (
+  return authors.length && courses.length ? (
     <CourseForm
       authors={authors}
       course={course}
@@ -62,6 +63,8 @@ const ManageCoursePage = ({
       onChange={handleChange}
       onSave={handleSave}
     />
+  ) : (
+    <Spinner />
   );
 };
 
