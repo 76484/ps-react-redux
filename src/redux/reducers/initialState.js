@@ -1,5 +1,5 @@
 export default {
-  apiCallInProgress: 0,
+  apiCallsInProgress: 0,
   authors: [],
   courses: []
 };
