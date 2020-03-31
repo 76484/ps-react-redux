@@ -9,14 +9,14 @@ import { newCourse } from "../../../tools/mockData";
 
 const ManageCoursePage = ({
   authors,
-  course: initialCourse,
+  course: propsCourse,
   courses,
   history,
   getAuthors,
   getCourses,
   saveCourse
 }) => {
-  const [course, setCourse] = useState({ ...initialCourse });
+  const [course, setCourse] = useState({ ...propsCourse });
   const [errors, setErrors] = useState({});
 
   const handleChange = event => {
@@ -49,8 +49,10 @@ const ManageCoursePage = ({
       getCourses().catch(error => {
         alert(`Loading courses failed: ${error}`);
       });
+    } else {
+      setCourse({ ...propsCourse });
     }
-  }, []);
+  }, [propsCourse]);
 
   return (
     <CourseForm
