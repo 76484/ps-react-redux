@@ -73,10 +73,14 @@ ManageCoursePage.propTypes = {
   saveCourse: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  const courseSlug = ownProps.match.params.slug;
   return {
     authors: state.authors,
-    course: newCourse,
+    course:
+      (courseSlug &&
+        state.courses.find(course => course.slug === courseSlug)) ||
+      newCourse,
     courses: state.courses
   };
 };
