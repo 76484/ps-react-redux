@@ -10,4 +10,6 @@ export default function apiCallStatusReducer(
   } else if (action.type.endsWith("_SUCCESS")) {
     return state - 1;
   }
+
+  return state;
 }
