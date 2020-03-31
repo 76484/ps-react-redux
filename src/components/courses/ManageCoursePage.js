@@ -11,6 +11,7 @@ const ManageCoursePage = ({
   authors,
   course: initialCourse,
   courses,
+  history,
   getAuthors,
   getCourses,
   saveCourse
@@ -28,9 +29,13 @@ const ManageCoursePage = ({
 
   const handleSave = event => {
     event.preventDefault();
-    saveCourse(course).catch(error => {
-      console.error(error);
-    });
+    saveCourse(course)
+      .then(() => {
+        history.push("/courses");
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
 
   useEffect(() => {
@@ -62,6 +67,7 @@ ManageCoursePage.propTypes = {
   authors: PropTypes.arrayOf(PropTypes.object).isRequired,
   course: PropTypes.object.isRequired,
   courses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  history: PropTypes.object.isRequired,
   getAuthors: PropTypes.func.isRequired,
   getCourses: PropTypes.func.isRequired,
   saveCourse: PropTypes.func.isRequired
