@@ -22,6 +22,25 @@ const ManageCoursePage = ({
   const [errors, setErrors] = useState({});
   const [isSaving, setIsSaving] = useState(false);
 
+  const formIsValid = () => {
+    const { title, authorId, category } = course;
+    const errors = {};
+
+    if (!title) {
+      errors.title = "Title is required";
+    }
+    if (!authorId) {
+      errors.author = "Author is required";
+    }
+    if (!category) {
+      errors.category = "Category is required";
+    }
+
+    setErrors(errors);
+
+    return Object.keys(errors).length === 0;
+  };
+
   const handleChange = event => {
     const { name, value } = event.target;
     setCourse(prevCourse => ({
@@ -32,6 +51,10 @@ const ManageCoursePage = ({
 
   const handleSave = event => {
     event.preventDefault();
+    if (!formIsValid()) {
+      return;
+    }
+
     setIsSaving(true);
     saveCourse(course)
       .then(() => {
