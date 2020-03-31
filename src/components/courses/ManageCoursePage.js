@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 
 import { getAuthors } from "../../redux/actions/authorActions";
 import { getCourses, saveCourse } from "../../redux/actions/courseActions";
@@ -34,6 +35,7 @@ const ManageCoursePage = ({
     setIsSaving(true);
     saveCourse(course)
       .then(() => {
+        toast.success("Cours saved");
         history.push("/courses");
       })
       .catch(error => {
