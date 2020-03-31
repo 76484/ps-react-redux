@@ -8,12 +8,14 @@ import * as courseActions from "../../redux/actions/courseActions";
 import PropTypes from "prop-types";
 
 import CourseList from "./CourseList";
+import Spinner from "../common/Spinner";
 
 class CoursesPage extends React.Component {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     authors: PropTypes.arrayOf(PropTypes.object).isRequired,
-    courses: PropTypes.arrayOf(PropTypes.object).isRequired
+    courses: PropTypes.arrayOf(PropTypes.object).isRequired,
+    isLoading: PropTypes.bool.isRequired
   };
 
   componentDidMount() {
@@ -36,15 +38,20 @@ class CoursesPage extends React.Component {
     return (
       <>
         <h2>Courses</h2>
-        <Link
-          className="btn btn-primary add-course"
-          style={{ marginBottom: 20 }}
-          to="/course"
-        >
-          Add Course
-        </Link>
-
-        <CourseList courses={this.props.courses || []} />
+        {this.props.isLoading ? (
+          <Spinner />
+        ) : (
+          <>
+            <Link
+              className="btn btn-primary add-course"
+              style={{ marginBottom: 20 }}
+              to="/course"
+            >
+              Add Course
+            </Link>
+            <CourseList courses={this.props.courses || []} />
+          </>
+        )}
       </>
     );
   }
@@ -63,7 +70,8 @@ const mapStateToProps = state => {
                 author => author.id === course.authorId
               ).name
             };
-          })
+          }),
+    isLoading: state.apiCallsInProgress > 0
   };
 };
 
