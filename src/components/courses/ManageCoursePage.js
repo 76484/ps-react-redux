@@ -39,7 +39,8 @@ const ManageCoursePage = ({
         history.push("/courses");
       })
       .catch(error => {
-        console.error(error);
+        setIsSaving(false);
+        setErrors({ onSave: error.message });
       });
   };
 
