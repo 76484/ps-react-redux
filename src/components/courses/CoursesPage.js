@@ -16,12 +16,19 @@ class CoursesPage extends React.Component {
   };
 
   componentDidMount() {
-    this.props.actions.getAuthors().catch(error => {
-      alert(`Loading authors failed: ${error}`);
-    });
-    this.props.actions.getCourses().catch(error => {
-      alert(`Loading courses failed: ${error}`);
-    });
+    const { authors, courses, actions } = this.props;
+
+    if (authors.length === 0) {
+      actions.getAuthors().catch(error => {
+        alert(`Loading authors failed: ${error}`);
+      });
+    }
+
+    if (courses.length === 0) {
+      actions.getCourses().catch(error => {
+        alert(`Loading courses failed: ${error}`);
+      });
+    }
   }
 
   render() {
