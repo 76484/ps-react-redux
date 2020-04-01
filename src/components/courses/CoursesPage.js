@@ -9,6 +9,7 @@ import PropTypes from "prop-types";
 
 import CourseList from "./CourseList";
 import Spinner from "../common/Spinner";
+import { toast } from "react-toastify";
 
 class CoursesPage extends React.Component {
   static propTypes = {
@@ -34,6 +35,13 @@ class CoursesPage extends React.Component {
     }
   }
 
+  handleDeleteCourse = course => {
+    toast.success("Course deleted");
+    this.props.actions.deleteCourse(course).catch(error => {
+      toast.error(`Delete failed. ${error.message}`, { autoClose: false });
+    });
+  };
+
   render() {
     return (
       <>
@@ -49,7 +57,10 @@ class CoursesPage extends React.Component {
             >
               Add Course
             </Link>
-            <CourseList courses={this.props.courses || []} />
+            <CourseList
+              courses={this.props.courses || []}
+              onDeleteClick={this.handleDeleteCourse}
+            />
           </>
         )}
       </>
@@ -78,6 +89,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     actions: {
+      deleteCourse: bindActionCreators(courseActions.deleteCourse, dispatch),
       getAuthors: bindActionCreators(authorActions.getAuthors, dispatch),
       getCourses: bindActionCreators(courseActions.getCourses, dispatch)
     }

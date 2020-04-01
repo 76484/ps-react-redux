@@ -2,6 +2,13 @@ import * as types from "./actionTypes";
 import * as courseApi from "../../api/courseApi";
 import { apiCallError, beginApiCall } from "./apiStatusActions";
 
+export function deleteCourse(course) {
+  return function(dispatch) {
+    dispatch({ type: types.DELETE_COURSE_OPTIMISTIC, course });
+    return courseApi.deleteCourse(course.id);
+  };
+}
+
 export function getCourses() {
   return function(dispatch) {
     dispatch(beginApiCall());
